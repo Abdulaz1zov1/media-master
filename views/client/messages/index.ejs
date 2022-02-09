@@ -1,0 +1,168 @@
+<style>
+    .fa-trash {
+        cursor: pointer;
+        color: rgb(255, 255, 255);
+        border: 1px solid rgb(255, 255, 255);
+        background-color: rgb(243, 50, 50);
+        padding: 15px 17px;
+        border-radius: 50%;
+        transition-duration: 0.3s;
+    }
+
+    .fa-trash:hover {
+        color: rgb(243, 50, 50);
+        background-color: rgb(252, 252, 252);
+        border: 1px solid rgb(243, 50, 50);
+        transition-duration: 0.3s;
+    }
+
+    #delete_success {
+        display: none;
+    }
+</style>
+
+<div class="page-nav p-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <div class="search-wrapper">
+                    <h2 class="mb-3">Mening habarlarim</h2>
+                    <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, maxime?</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- archa habarlar ro'yhati -->
+<div class="faq-page mt-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="alert alert-warning bg-success text-light col-sm-12"  id="delete_success">
+                Xabar muvaffaqiyatli tarzda o'chirildi
+            </div>
+            <div class="col-sm-12">
+                <div id="accordion" class="accordion">
+
+
+
+                    <!-- <div class="card">
+                        <div class="card-header"
+                            style="display: flex; flex-direction: row; justify-content: space-between; flex-wrap: wrap;">
+                            <h5 class="mb-0"> <img style="width: 50px; border-radius: 50%;" src="/images/team5.jpg"
+                                    alt="" /> </h5>
+                            <h5 class="mb-0"> Username </h5>
+                            <h5 class="mb-0"> Ko'rib chiqilmoqda </h5>
+                            <h5 class="mb-0"> Murojat qabil qilindi</h5>
+                            <h5 class="mb-0"> Data: 22.12.2021 12:58 </h5>
+                            <h5 class="mb-0 trash"> <i class="fa fa-trash"></i></h5>
+
+                        </div>
+                        <div class="card-header"
+                            style="display: flex; flex-direction: row; justify-content: flex-start">
+                            <p class="mb-0">
+                                " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiatarchitecto sunt
+                                voluptatibus? "
+                            </p>
+
+
+                        </div>
+                    </div> -->
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/axios.min.js"></script>
+<script>
+
+    axios.get('/api/user/getme').then((Response) => {
+        const id = Response.data.user._id
+        axios.get(`/api/contact/userMessage/${id}`).then(async (response) => {
+            const result = response.data
+            const accordion = $('#accordion')
+            await accordion.html("")
+            result.forEach((element, index) => {
+                accordion.append(`
+                
+                    <div class="card">
+                        <div class="card-header"
+                            style="display: flex; flex-direction: row; justify-content: space-between; flex-wrap: wrap;">
+                            <h5 class="mb-0"> <img style="width: 50px; border-radius: 50%;" src="/images/team5.jpg" alt="" /> </h5>
+                            <h5 class="mb-0"> ${element.username.name} </h5>
+                            <h5 class="mb-0" > <span class="badge bg-danger text-light koribChiqilmoqda"  style="font-size: 13px">  Ayni paytda ko'rib chiqilmoqda</span> </h5>
+                            <h5 class="mb-0" > <span  class="badge bg-success text-light qabulQilindi"  style="font-size: 13px">  Xabaringiz tasdiqlandi </span> </h5>
+                           
+                            <h5 class="mb-0"> Sana: ${new Date(element.createdAt).toLocaleDateString()} </h5>
+                            <h5 class="mb-0 trash" onclick="deleteMessage('${element._id}')" > <i class="fa fa-trash"></i></h5>
+
+                        </div>
+                        <div class="card-header"
+                            style="display: flex; flex-direction: row; justify-content: flex-start">
+                            <p class="mb-0">
+                                " ${element.message} "
+                            </p>
+                        </div>
+                    </div>
+                
+                `)
+
+                const koribChiqilmoqda = document.querySelectorAll(".koribChiqilmoqda")
+                const qabulQilindi = document.querySelectorAll(".qabulQilindi")
+
+                // 1.Agar oqilmagan bolsa "Ayni paytda ko'rib chiqilmoqda" habari chiqsin
+                if (element.read_or_not == "no") {
+                    koribChiqilmoqda.forEach((ITEM, INDEX) => {
+                        if (index == INDEX) {
+                            ITEM.style.display = "block"
+                        }
+                    })
+                    qabulQilindi.forEach((ITEM, INDEX) => {
+                        if (index == INDEX) {
+                            ITEM.style.display = "none"
+                        }
+                    })
+                }
+
+                if (element.access_or_not == "yes") {
+                    koribChiqilmoqda.forEach((ITEM, INDEX) => {
+                        if (index == INDEX) {
+                            ITEM.style.display = "none"
+                        }
+                    })
+                    qabulQilindi.forEach((ITEM, INDEX) => {
+                        if (index == INDEX) {
+                            ITEM.style.display = "block"
+                        }
+                    })
+                }
+
+
+
+            });
+        })
+    })
+
+
+
+    const deleteMessage = (id) => {
+        axios.delete(`/api/contact/${id}`).then((res) => {
+            document.getElementById('delete_success').style.display = "block"
+            setTimeout(() => {
+                window.location.reload()
+            }, 2000)
+        })
+    }
+
+
+
+
+
+
+</script>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vstream </title>
+
+    <link rel="stylesheet" href="/css/themify-icons.css">
+    <!-- Favicon icon -->
+    <link href="/assets/css/icons.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/video-player.css">
+
+    <style>
+        .userProfile{
+            background-color: rgb(238, 238, 238);
+            transition-duration: 0.7s
+        }
+        .userProfile:hover{
+            background-color: rgb(255, 159, 159);
+            transition-duration: 0.7s
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <div class="preloader"></div>
+
+
+
+    <div class="main-wrapper">
+        <div class="header-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 navbar p-0">
+                        <a href="/" class="logo"><img src="/images/logo.png" alt="logo" class="light"><img
+                                src="/images/logo-white.png" alt="logo" class="dark"></a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                            <ul class="navbar-nav nav-menu float-none text-center">
+                                <li class="nav-item"><a class="nav-link" href="/category">Kategoriya</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/all/movies">Kino</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/all/seasons">Sezon</a></li>
+                                
+                                <li id="registerUrl" class="nav-item"><a class="nav-link" href="/register">Register</a>
+                                </li>
+                                <li id="loginUrl" class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4" >
+                        <div class="user-avater" id="profileUrl">
+                            <img src="/images/user-8.png" alt="user">
+                            <div class="user-menu">
+                                <ul>
+                                    <li class="userProfile"><a href="/profile"> Profil</a></li>
+                                    <li class="userProfile"><a href="/contact"> Aloqa</a></li>
+                                    <li class="userProfile"><a href="/messages"> Xabarlar</a></li>
+                                    <li class="userProfile"><a href="/basket"> Savatcha</a></li>
+                                    <li class="userProfile"><a href="/myVideo"> Videolarim</a></li>
+                                    <li class="userProfile"><a href="/balanc"> Balans</a></li>
+                                    <li class="userProfile"><a href="">Chiqish</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="search-div">
+                            <input type="text" placeholder="Search">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <%- body %>
+
+            <div class="footer-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 text-left">
+                            <h4 class="mb-4">We are digital agency, a small design agency based in paris as i was
+                                groping to remove the chain from about my victim’s neck only through language.</h4>
+                        </div>
+                        <div class="col-sm-6 text-left">
+                            <img src="/images/icon-21.png" alt="icon" class="icon-img">
+                        </div>
+                        <div class="col-sm-5 offset-sm-1 text-right">
+                            <form action="#" class="mt-0">
+                                <input type="text" placeholder="Email">
+                                <button>Submit</button>
+                            </form>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="middle-footer">
+                                <div class="row">
+                                    <div class="col-md-4 col-lg-2 col-sm-6 col-xs-6 md-mb25">
+                                        <h5>Social Link</h5>
+                                        <ul>
+                                            <li><a href="#">Facebook</a></li>
+                                            <li><a href="#">Twitter</a></li>
+                                            <li><a href="#">Instagram</a></li>
+                                            <li><a href="#">Youtube</a></li>
+                                            <li><a href="#">Dribble</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-4 col-lg-2 col-sm-6 col-xs-6 md-mb25">
+                                        <h5>ONLINE</h5>
+                                        <ul>
+                                            <li><a href="#">Web</a></li>
+                                            <li><a href="#">Series</a></li>
+                                            <li><a href="#">Natak</a></li>
+                                            <li><a href="#">Comedy</a></li>
+                                            <li><a href="#">Action</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-4 col-lg-2 col-sm-6 col-xs-6 md-mb25">
+                                        <h5>Language</h5>
+                                        <ul>
+                                            <li><a href="#">English</a></li>
+                                            <li><a href="#">Spanish</a></li>
+                                            <li><a href="#">Arab</a></li>
+                                            <li><a href="#">Urdu</a></li>
+                                            <li><a href="#">Brazil</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-4 col-lg-2 col-sm-6 col-xs-6">
+                                        <h5>Channel</h5>
+                                        <ul>
+                                            <li><a href="#">Makeup</a></li>
+                                            <li><a href="#">Dresses</a></li>
+                                            <li><a href="#">Girls</a></li>
+                                            <li><a href="#">Sandals</a></li>
+                                            <li><a href="#">Headphones</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-4 col-lg-2 col-sm-6 col-xs-6">
+                                        <h5>About</h5>
+                                        <ul>
+                                            <li><a href="#">FAQ</a></li>
+                                            <li><a href="#">Term of use</a></li>
+                                            <li><a href="#">Privacy Policy</a></li>
+                                            <li><a href="#">Feedback</a></li>
+                                            <li><a href="#">Careers</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-4 col-lg-2 col-sm-6 col-xs-6">
+                                        <h5 class="mb-3">Office</h5>
+                                        <p style="width: 100%;">41 madison ave, floor 24 new work, NY 10010
+                                            <br>1-877-932-7111
+                                        </p>
+                                        <p style="width: 100%;">41 madison ave, floor 24 new work, NY 10010
+                                            <br>1-877-932-7111
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 lower-footer"></div>
+                        <div class="col-sm-6">
+                            <p class="copyright-text">© 2020 copyright. All rights reserved.</p>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <p class="float-right copyright-text">In case of any concern, <a href="#">contact us</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+
+
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/axios.min.js"></script>
+
+    <script src="/js/plugin.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/scripts.js"></script>
+    <script src="/js/video-player.js"></script>
+
+
+
+    <script>
+        const registerUrl = document.getElementById('registerUrl')
+        const loginUrl = document.getElementById('loginUrl')
+        const profileUrl = document.getElementById('profileUrl')
+
+        registerUrl.style.display = "none"
+        loginUrl.style.display = "none"
+        profileUrl.style.display = "none"
+
+        axios.get('/api/user/getme').then((res) => {
+            const USER_SESSION = res.data
+            if (!USER_SESSION.user) {
+                registerUrl.style.display = "block"
+                loginUrl.style.display = "block"
+                profileUrl.style.display = "none"
+            }else {
+                registerUrl.style.display = "none"
+                loginUrl.style.display = "none"
+                profileUrl.style.display = "block"
+            }
+        })
+
+
+
+
+    </script>
+
+</body>
+
+</html>

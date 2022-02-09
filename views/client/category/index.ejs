@@ -1,0 +1,50 @@
+<div class="page-nav p-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <div class="search-wrapper">
+                    <h2 class="mb-3">Barcha kategoriyalar</h2>
+                    <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, maxime?</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="slide-wrapper search-wrap-slide mt-4">
+    <div class="container">
+        <div class="row" id="all_categories">
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/axios.min.js"></script>
+<script>
+
+   
+
+    axios.get('/api/category/all').then(async (res) => {
+        const KINOLAR = res.data
+        const kinolar = $('#all_categories')
+        await kinolar.html("")
+        KINOLAR.forEach((item) => {
+            kinolar.append(`
+            <div class="col-md-4 col-lg-3 mb-3">
+                <div class="owl-items">
+                    <a href="/category/${item._id}" class="category-wrap" style="
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                        background-image: url(images/gb4.png);">
+                        <span>${item.name}</span>
+                    </a>
+                </div>
+            </div>
+            `)
+        });
+    })
+</script>

@@ -1,0 +1,30 @@
+{
+  "name": "media_website",
+  "version": "1.0.0",
+  "description": "Media saytlar bilan ishlash ",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "dev": "node app.js"
+  },
+  "author": "Isomiddinov Shahriyor ",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-mongodb-session": "^3.1.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.17.2",
+    "md5": "^2.3.0",
+    "mdb-ui-kit": "^3.10.1",
+    "mongoose": "^6.0.13",
+    "multer": "^1.4.3",
+    "node-cron": "^3.0.0",
+    "nodemon": "^2.0.15",
+    "select2": "^4.1.0-rc.0",
+    "uuid": "^8.3.2"
+  }
+}

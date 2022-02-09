@@ -1,0 +1,56 @@
+<div class="page-nav p-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <div class="search-wrapper">
+                    <h2 class="mb-3" id="category" ></h2>
+                    <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, maxime?</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="slide-wrapper search-wrap-slide mt-4">
+    <div class="container">
+
+        <div class="row" id="kinoFilter"></div>
+    </div>
+</div>
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/axios.min.js"></script>
+<script>
+
+    const path = window.location.pathname
+    const id = path.slice(10)
+
+    axios.get(`/api/category/${id}`).then(async (res) => {
+        const result = res.data
+        document.getElementById("category").innerHTML = result.name
+    })
+
+    axios.get(`/api/kino/filterCategory/${id}`).then(async (res) => {
+        const result = res.data
+        const kinoFilter = $('#kinoFilter')
+        await kinoFilter.html("")
+        result.forEach((item) => {
+            kinoFilter.append(`
+                    <div class="col-md-4 col-lg-3 mb-3">
+                        <a class="slide-one" href="/movie/${item._id}">
+                            <div class="slide-image"><img src="/uploads/${item.files[1]}" alt="image"></div>
+                            <div class="slide-content">
+                                <h2>${item.name} <img src="/images/plus.png" alt="icon"></h2>
+                                <span class="tag">${item.videoTime}</span>
+                                <span class="tag">${item.year.name}</span>
+                                <span class="tag"><b>${item.format}</b></span>
+                                <span class="tag"><b>${item.age.name}</b></span>
+                            </div>
+                        </a>
+                    </div>
+            `)
+        });
+    })
+</script>

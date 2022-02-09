@@ -1,0 +1,47 @@
+<style>
+    .imagesAll {
+        height: 320px;
+    }
+</style>
+
+
+<div class="page-nav p-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <div class="search-wrapper">
+                    <h2 class="mb-3">Barcha kinolar</h2>
+                    <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, maxime?</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-wrapper search-wrap-slide mt-4">
+    <div class="container">
+        <div class="row" id="getAllDatas">
+
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/axios.min.js"></script>
+<script>
+    axios.get('/api/kino/all').then(async (response) => {
+        const result = response.data
+        const kinolar = $('#getAllDatas')
+        await kinolar.html("")
+        result.forEach((item) => {
+            kinolar.append(`
+            <div class="col-md-4 col-lg-3 mb-3 imagesAll" >
+                <div class="owl-items imagesAll">
+                    <a href="/movie/${item._id}" class="category-wrap imagesAll" style=" background-position: center; background-repeat: no-repeat; background-size: cover; background-image: url(/uploads/${item.files[1]});">
+                        <span>${item.name}</span>
+                    </a>
+                </div>
+            </div>
+            `)
+        });
+    })
+</script>

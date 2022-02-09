@@ -1,0 +1,911 @@
+<style>
+    .alert {
+        display: none;
+    }
+</style>
+ <!-------------------------------- Get all data  ------------------------------ -->
+<div class="container-fluid">
+    <div class="page-title-box">
+        <div class="row align-items-center">
+            <div class="col-sm-10">
+                <h4 class="page-title">Movie table</h4>
+            </div>
+            <div class="col-sm-2">
+                <button type="button" class="btn btn-outline-warning waves-effect waves-light" data-toggle="modal"
+                    data-target="#modal_open"> <i class="fas fa-plus-square"></i> Create new data</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card m-b-30">
+                <div class="alert alert-warning" role="alert" id="delete_success">
+                    Malumot muvaffaquyatli o'chirildi
+                </div>
+                <div class="card-body">
+                    <table id="datatable" class="table table-bordered dt-responsive nowrap text-center"
+                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Date</th>
+                                <th style="width: 30%;">Setting</th>
+                            </tr>
+                        </thead>
+                        <tbody class="GET_ALL_DATAS">
+                           
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!------------------------------   Create Modal  -------------------------------->
+<div class="modal fade bs-example-modal-xl" id="modal_open" tabindex="-1" role="dialog"
+    aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0" id="myLargeModalLabel">Create new data</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-warning" role="alert" id="error_create">
+                    Iltimos malumotni to'liq kiriting
+                </div>
+                <div class="alert alert-success" role="alert" id="success_create">
+                    Muvaffaquyatli yaratildi
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Enter name</label>
+                    <input type="text" class="form-control" id="NAME">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Enter description</label>
+                    <textarea class="form-control" id="DESCRIPTION" cols="30" rows="10"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Enter image</label>
+                    <input type="file" class="form-control" id="IMAGE">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Enter video</label>
+                    <input type="file" class="form-control" id="VIDEO">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Enter video time </label>
+                    <input type="text" class="form-control" id="VIDEO_TIME">
+                </div>
+
+                <div class="mb-3">
+                    <label for="">Enter age</label>
+                    <select class="form-control" value="" id="AGE"> </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="">Enter year</label>
+                    <select class="form-control" value="" id="YEAR"> </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="">Enter country</label>
+                    <select class="form-control COUNTRY" value="" id="COUNTRY" multiple="multiple"> 
+                        
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="">Enter janr</label>
+                    <select class="form-control JANR" value="" id="JANR" multiple="multiple">
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="">Enter language</label>
+                    <select class="form-control LANGUAGE" value="" id="LANGUAGE" multiple="multiple">
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="">Enter category</label>
+                    <select class="js-example-basic-multiple form-control CATEGORY" multiple="multiple" id="CATEGORY">
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="">Enter author</label>
+                    <select class="form-control AUTHOR" value="" id="AUTHOR" multiple="multiple">
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="">Enter tag</label>
+                    <select class="form-control TAG" value="" id="TAG" multiple="multiple">
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Enter amount</label>
+                    <input type="number" class="form-control AMOUNT" id="AMOUNT">
+                </div>
+                <div class="mb-3">
+                    <label for="">Enter format</label>
+                    <select class="form-control " value="" id="FORMAT">
+                        <option value=""> Select something </option>
+                        <option value="HD - 144p">HD - 144p</option>
+                        <option value="HD - 240p">HD - 240p</option>
+                        <option value="HD - 480p">HD - 480p</option>
+                        <option value="HD - 720p">HD - 720p</option>
+                        <option value="HD - 1080p">HD - 1080p</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Enter IMDb</label>
+                    <input type="text" class="form-control" id="IMDb">
+                </div>
+
+
+
+
+
+
+                <div class="mb-3">
+                    <button onclick="createData()" class="btn btn-outline-warning"> <i class="fas fa-plus-square"></i>
+                        Save data</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------------   Information Modal  -------------------------------->
+<div class="modal fade bs-example-modal-xl" id="get_item_modal" tabindex="-1" role="dialog"
+    aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0" id="myLargeModalLabel">View existed data</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body get_item_modal_DATA">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------------   Update Text  -------------------------------->
+<div class="modal fade bs-example-modal-xl" id="update_item_modal" tabindex="-1" role="dialog"
+    aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0" id="myLargeModalLabel">Update Data</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body update_item_modal_DATA"></div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/axios.min.js"></script>
+<script>
+
+    // Get all country data 
+    axios.get('/api/country/all').then(async (Response) => {
+        const result = Response.data // [{}, {}, {}]
+        const get_DATA = $('#COUNTRY')
+        await get_DATA.html("")
+        result.forEach((item, index) => {
+            get_DATA.append(`<option value="${item._id}">${item.name}</option>`)
+        });
+    })
+    // Get all janr data 
+    axios.get('/api/janr/all').then(async (Response) => {
+        const result = Response.data // [{}, {}, {}]
+        const get_DATA = $('#JANR')
+        await get_DATA.html("")
+        result.forEach((item, index) => {
+            get_DATA.append(`<option value="${item._id}">${item.name}</option>`)
+        });
+    })
+    // Get all language data 
+    axios.get('/api/language/all').then(async (Response) => {
+        const result = Response.data // [{}, {}, {}]
+        const get_DATA = $('#LANGUAGE')
+        await get_DATA.html("")
+        result.forEach((item, index) => {
+            get_DATA.append(`<option value="${item._id}">${item.name}</option>`)
+        });
+    })
+    // Get all category data 
+    axios.get('/api/category/all').then(async (Response) => {
+        const result = Response.data // [{}, {}, {}]
+        const get_DATA = $('#CATEGORY')
+        await get_DATA.html("")
+        result.forEach((item, index) => {
+            get_DATA.append(`<option value="${item._id}">${item.name}</option>`)
+        });
+    })
+    // Get all author data 
+    axios.get('/api/author/all').then(async (Response) => {
+        const result = Response.data // [{}, {}, {}]
+        const get_DATA = $('#AUTHOR')
+        await get_DATA.html("")
+        result.forEach((item, index) => {
+            get_DATA.append(`<option value="${item._id}">${item.name}</option>`)
+        });
+    })
+    // Get all tag data 
+    axios.get('/api/tag/all').then(async (Response) => {
+        const result = Response.data // [{}, {}, {}]
+        const get_DATA = $('#TAG')
+        await get_DATA.html("")
+        result.forEach((item, index) => {
+            get_DATA.append(`<option value="${item._id}">${item.name}</option>`)
+        });
+    })
+    // Get all age data 
+    axios.get('/api/age/all').then(async (Response) => {
+        const result = Response.data // [{}, {}, {}]
+        const get_DATA = $('#AGE')
+        await get_DATA.html("")
+        get_DATA.append(`<option value="" style="font-weight: 900;"> Select something </option>`)
+        result.forEach((item, index) => {
+            get_DATA.append(`<option value="${item._id}">${item.name}</option>`)
+        });
+    })
+    // Get all year data 
+    axios.get('/api/year/all').then(async (Response) => {
+        const result = Response.data // [{}, {}, {}]
+        const get_DATA = $('#YEAR')
+        await get_DATA.html("")
+        get_DATA.append(`<option value="" style="font-weight: 900;"> Select something </option>`)
+        result.forEach((item, index) => {
+            get_DATA.append(`<option value="${item._id}">${item.name}</option>`)
+        });
+    })
+
+
+    // Create one data
+    function createData() {
+        const formData = new FormData()
+        let IMAGE = document.getElementById("IMAGE").files[0]
+        let VIDEO = document.getElementById("VIDEO").files[0]
+        let NAME = $("#NAME").val()
+        let DESCRIPTION = $("#DESCRIPTION").val()
+        let VIDEO_TIME = $("#VIDEO_TIME").val()
+        let AGE = $("#AGE").val()
+        let YEAR = $("#YEAR").val()
+        let AMOUNT = $("#AMOUNT").val()
+        let FORMAT = $("#FORMAT").val()
+        let IMDb = $("#IMDb").val()
+        let COUNTRY = document.getElementById("COUNTRY")
+        let JANR = document.getElementById("JANR")
+        let LANGUAGE = document.getElementById("LANGUAGE")
+        let CATEGORY = document.getElementById("CATEGORY")
+        let AUTHOR = document.getElementById("AUTHOR")
+        let TAG = document.getElementById("TAG")
+
+        const Country = []
+        for (let item of COUNTRY) {
+            if (item.selected) {
+                Country.push(item.value)
+            }
+        }
+        const Janr = []
+        for (let item of JANR) {
+            if (item.selected) {
+                Janr.push(item.value)
+            }
+        }
+        const Language = []
+        for (let item of LANGUAGE) {
+            if (item.selected) {
+                Language.push(item.value)
+            }
+        }
+        const Category = []
+        for (let item of CATEGORY) {
+            if (item.selected) {
+                Category.push(item.value)
+            }
+        }
+        const Author = []
+        for (let item of AUTHOR) {
+            if (item.selected) {
+                Author.push(item.value)
+            }
+        }
+        const Tag = []
+        for (let item of TAG) {
+            if (item.selected) {
+                Tag.push(item.value)
+            }
+        }
+
+
+        for (var i = 0; i < Country.length; i++) {
+            formData.append('country[]', Country[i]);
+        }
+        for (var i = 0; i < Janr.length; i++) {
+            formData.append('janr[]', Janr[i]);
+        }
+        for (var i = 0; i < Language.length; i++) {
+            formData.append('language[]', Language[i]);
+        }
+        for (var i = 0; i < Category.length; i++) {
+            formData.append('category[]', Category[i]);
+        }
+        for (var i = 0; i < Author.length; i++) {
+            formData.append('author[]', Author[i]);
+        }
+        for (var i = 0; i < Tag.length; i++) {
+            formData.append('tag[]', Tag[i]);
+        }
+        formData.append("files", VIDEO)
+        formData.append("files", IMAGE)
+        formData.append("name", NAME)
+        formData.append("description", DESCRIPTION)
+        formData.append("videoTime", VIDEO_TIME)
+        formData.append("age", AGE)
+        formData.append("year", YEAR)
+        formData.append("amount", AMOUNT)
+        formData.append("format", FORMAT)
+        formData.append("IMDb", IMDb)
+
+        if (
+            IMAGE == "" ||
+            VIDEO == "" ||
+            NAME == "" ||
+            DESCRIPTION == "" ||
+            VIDEO_TIME == "" ||
+            AGE == "" ||
+            YEAR == "" ||
+            AMOUNT == "" ||
+            FORMAT == "" ||
+            IMDb == "" ||
+            COUNTRY == "" ||
+            JANR == "" ||
+            LANGUAGE == "" ||
+            CATEGORY == "" ||
+            AUTHOR == "" ||
+            TAG == ""
+        ) {
+            error_create.style.display = "block"
+            setTimeout(() => { error_create.style.display = "none" }, 3000)
+        } else {
+            axios({
+                url: '/api/kino/create',
+                method: "POST",
+                data: formData,
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            }).then((res) => {
+                document.getElementById('success_create').style.display = "block"
+                setTimeout(() => {
+                    window.location.reload()
+                }, 2000)
+            }).catch((error) => {
+                console.log(error)
+            })
+        }
+    }
+    // Get all data
+    axios.get('/api/kino/all').then(async (Response) => {
+        const result = Response.data // [{}, {}, {}]
+        const get_DATA = $('.GET_ALL_DATAS')
+        await get_DATA.html("")
+        result.forEach((item, index) => {
+            get_DATA.append(`
+                <tr>
+                    <td>${item.name}</td>
+                    <td>${new Date(item.createdAt).toLocaleDateString()}</td>
+                    <td>
+                        <button onclick="getITEM('${item._id}')" class="btn btn-outline-success" data-toggle="modal" data-target="#get_item_modal">
+                            <i class="far fa-eye"></i> 
+                        </button>
+
+                        <button onclick="updateITEM('${item._id}')" class="btn btn-outline-warning" data-toggle="modal"  data-target="#update_item_modal">
+                            <i class="fas fa-eye-dropper"></i>
+                        </button>
+
+                        <button onclick="deleteITEM('${item._id}')" class="btn btn-outline-danger">
+                            <i class="far fa-trash-alt"></i>
+                        </button>
+                    </td>
+                </tr>
+            `)
+        });
+    })
+    // Get one data
+    const getITEM = (id) => {
+        axios.get(`/api/kino/${id}`).then(async (Response) => {
+            const result = Response.data // {}
+            const get_DATA = $('.get_item_modal_DATA')
+            await get_DATA.html("")
+            
+            get_DATA.append(`
+                <ul class="col-sm-12 list-group list-group-horizontal">
+                    <li class=" font-14 bg-warning text-dark list-group-item col-sm-6">Kino qanday nomlanadi ?</li>
+                    <li class=" font-14 text-warning list-group-item col-sm-6">${result.name}</li>
+                </ul>
+
+                <ul class="col-sm-12 list-group list-group-horizontal mt-2">
+                    <li class=" font-14 bg-warning text-dark list-group-item col-sm-6"> Kino nima haqida ?</li>
+                    <li class=" font-14 text-warning list-group-item col-sm-6">${result.description}</li>
+                </ul>
+
+                <ul class="col-sm-12 list-group list-group-horizontal mt-2">
+                    <li class=" font-14 bg-warning text-dark list-group-item col-sm-6">Kino vaqti qancha ? </li>
+                    <li class=" font-14 text-warning list-group-item col-sm-6">${result.videoTime}</li>
+                </ul>
+
+                <ul class="col-sm-12 list-group list-group-horizontal mt-2">
+                    <li class=" font-14 bg-warning text-dark list-group-item col-sm-6">Qancha odam tomosha qilgan ? </li>
+                    <li class=" font-14 text-warning list-group-item col-sm-6">${result.view}</li>
+                </ul>
+ 
+                <ul class="col-sm-12 list-group list-group-horizontal mt-2">
+                    <li class=" font-14 bg-warning text-dark list-group-item col-sm-6">Qancha odamga yoqgan ? </li>
+                    <li class=" font-14 text-warning list-group-item col-sm-6">${result.like}</li>
+                </ul>
+
+                <ul class="col-sm-12 list-group list-group-horizontal mt-2">
+                    <li class=" font-14 bg-warning text-dark list-group-item col-sm-6">  Qancha odamga yoqmagan ? </li>
+                    <li class=" font-14 text-warning list-group-item col-sm-6">${result.dislike}</li>
+                </ul>
+
+                <ul class="col-sm-12 list-group list-group-horizontal mt-2">
+                    <li class=" font-14 bg-warning text-dark list-group-item col-sm-6">Kino raytingi qanday ? </li>
+                    <li class=" font-14 text-warning list-group-item col-sm-6">${result.rating}</li>
+                </ul>
+
+                <ul class="col-sm-12 list-group list-group-horizontal mt-2">
+                    <li class=" font-14 bg-warning text-dark list-group-item col-sm-6"> Kino statusi qanday ? </li>
+                    <li class=" font-14 text-warning list-group-item col-sm-6">${result.status}</li>
+                </ul>
+
+                <ul class="col-sm-12 list-group list-group-horizontal mt-2">
+                    <li class=" font-14 bg-warning text-dark list-group-item col-sm-6">  Nechi yoshlilar uchun ?</li>
+                    <li class=" font-14 text-warning list-group-item col-sm-6">${result.age.name}</li>
+                </ul>
+
+                <ul class="col-sm-12 list-group list-group-horizontal mt-2">
+                    <li class=" font-14 bg-warning text-dark list-group-item col-sm-6">  Qachon chiqarilgan ?</li>
+                    <li class=" font-14 text-warning list-group-item col-sm-6">${result.year.name}</li>
+                </ul>
+                
+                <ul class="col-sm-12 list-group list-group-horizontal mt-2">
+                    <li class=" font-14 bg-warning text-dark list-group-item col-sm-6">Qanday formatda chiqarilgan ? </li>
+                    <li class=" font-14 text-warning list-group-item col-sm-6">${result.format}</li>
+                </ul>
+
+                <ul class="col-sm-12 list-group list-group-horizontal mt-2">
+                    <li class=" font-14 bg-warning text-dark list-group-item col-sm-6">Qanday IMDb da chiqarilgan ? </li>
+                    <li class=" font-14 text-warning list-group-item col-sm-6">${result.IMDb}</li>
+                </ul>
+
+                <ul class="col-sm-12 list-group list-group-horizontal mt-2">
+                    <li class=" font-14 bg-warning text-dark list-group-item col-sm-6"> Kino narxi qancha ? </li>
+                    <li class=" font-14 text-warning list-group-item col-sm-6">${result.amount}</li>
+                </ul>
+
+                <ul class="col-sm-12 list-group list-group-horizontal mt-2">
+                    <li class=" font-14 bg-warning text-dark list-group-item col-sm-6"> Videoni ko'rish </li>
+                    <li class=" font-14 text-warning list-group-item col-sm-6"><a target="_blank" class="font-14  text-warning " href="/uploads/${result.files[0]}"> <i class="fas fa-eye"> </i>  Ko'rish </a></li>
+                </ul>
+
+                <ul class="col-sm-12 list-group list-group-horizontal mt-2">
+                    <li class=" font-14 bg-warning text-dark list-group-item col-sm-6"> Rasmni korish ? </li>
+                    <li class=" font-14 text-warning list-group-item col-sm-6"> <a target="_blank" class="font-14  text-warning " href="/uploads/${result.files[1]}"><i class="fas fa-eye"> </i> Ko'rish</a> </li>
+                </ul>
+
+                <ul class="col-sm-12 list-group list-group-horizontal mt-2">
+                    <li class=" font-14 bg-warning text-dark list-group-item col-sm-6">  Qaysi muallifga tegishli ? </li>
+                    <li class=" font-14 text-warning list-group-item col-sm-6">
+                        <ul class="col-sm-12 list-group list-group-vertical mt-2" id="author_ARRAYS">
+                   
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="col-sm-12 list-group list-group-horizontal mt-2">
+                    <li class=" font-14 bg-warning text-dark list-group-item col-sm-6">  Qaysi kategoriyaga tegishli ? </li>
+                    <li class=" font-14 text-warning list-group-item col-sm-6">
+                        <ul class="col-sm-12 list-group list-group-vertical mt-2" id="category_ARRAYS">
+                   
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="col-sm-12 list-group list-group-horizontal mt-2">
+                    <li class=" font-14 bg-warning text-dark list-group-item col-sm-6">  Qaysi mamlakatga tegishli ? </li>
+                    <li class=" font-14 text-warning list-group-item col-sm-6">
+                        <ul class="col-sm-12 list-group list-group-vertical mt-2" id="country_ARRAYS">
+                   
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="col-sm-12 list-group list-group-horizontal mt-2">
+                    <li class=" font-14 bg-warning text-dark list-group-item col-sm-6">  Qaysi janrga tegishli ? </li>
+                    <li class=" font-14 text-warning list-group-item col-sm-6">
+                        <ul class="col-sm-12 list-group list-group-vertical mt-2" id="janr_ARRAYS">
+                   
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="col-sm-12 list-group list-group-horizontal mt-2">
+                    <li class=" font-14 bg-warning text-dark list-group-item col-sm-6">  Qaysi tilga tegishli ? </li>
+                    <li class=" font-14 text-warning list-group-item col-sm-6">
+                        <ul class="col-sm-12 list-group list-group-vertical mt-2" id="language_ARRAYS">
+                   
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="col-sm-12 list-group list-group-horizontal mt-2">
+                    <li class=" font-14 bg-warning text-dark list-group-item col-sm-6">  Qaysi tegga tegishli ? </li>
+                    <li class=" font-14 text-warning list-group-item col-sm-6">
+                        <ul class="col-sm-12 list-group list-group-vertical mt-2" id="tag_ARRAYS">
+                   
+                        </ul>
+                    </li>
+                </ul>
+            `)
+            
+            
+            const author_ARRAYS = $('#author_ARRAYS')
+            await author_ARRAYS.html("")
+            for (let item of result.author) {
+                author_ARRAYS.append(`<li class="font-14 text-warning list-group-item col-sm-10 mt-2 offset-1">${item.name}</li>`)
+            }
+            const category_ARRAYS = $('#category_ARRAYS')
+            await category_ARRAYS.html("")
+            for (let item of result.category) {
+                category_ARRAYS.append(`<li class="font-14 text-warning list-group-item col-sm-10 mt-2 offset-1">${item.name}</li>`)
+            }
+            const country_ARRAYS = $('#country_ARRAYS')
+            await country_ARRAYS.html("")
+            for (let item of result.country) {
+                country_ARRAYS.append(`<li class="font-14 text-warning list-group-item col-sm-10 mt-2 offset-1">${item.name}</li>`)
+            }
+            const janr_ARRAYS = $('#janr_ARRAYS')
+            await janr_ARRAYS.html("")
+            for (let item of result.janr) {
+                janr_ARRAYS.append(`<li class="font-14 text-warning list-group-item col-sm-10 mt-2 offset-1">${item.name}</li>`)
+            }
+            const language_ARRAYS = $('#language_ARRAYS')
+            await language_ARRAYS.html("")
+            for (let item of result.language) {
+                language_ARRAYS.append(`<li class="font-14 text-warning list-group-item col-sm-10 mt-2 offset-1">${item.name}</li>`)
+            }
+            const tag_ARRAYS = $('#tag_ARRAYS')
+            await tag_ARRAYS.html("")
+            for (let item of result.tag) {
+                tag_ARRAYS.append(`<li class="font-14 text-warning list-group-item col-sm-10 mt-2 offset-1">${item.name}</li>`)
+            }
+
+        })
+    }
+    
+    
+
+
+
+
+
+
+    
+    // Update data
+    const updateITEM = (id) => {
+        axios.get(`/api/kino/${id}`).then(async (Response) => {
+            const result = Response.data // [{}, {}, {}]
+            const get_DATA = $('.update_item_modal_DATA')
+            await get_DATA.html("")
+            get_DATA.append(`
+            
+                <div class="alert alert-warning" role="alert" id="error_update">
+                    Iltimos malumotni to'liq kiriting
+                </div>
+                <div class="alert alert-success" role="alert" id="success_update">
+                    Muvaffaquyatli tahrirlandi
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Enter name</label>
+                    <input type="text" value="${result.name}" class="form-control " id="UPDATE__NAME">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Enter description</label>
+                    <textarea class="form-control"  id="UPDATE__DESCRIPTION" cols="30" rows="10">${result.description}</textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Enter image</label>
+                    <input type="file" class="form-control" id="UPDATE__IMAGE">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Enter video</label>
+                    <input type="file" class="form-control" id="UPDATE__VIDEO">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Enter video time </label>
+                    <input type="text" class="form-control" value="${result.videoTime}" id="UPDATE__VIDEO_TIME">
+                </div>
+
+                <div class="mb-3">
+                    <label for="">Enter age</label>
+                    <select class="form-control age_update" value="" id="UPDATE__AGE"> </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="">Enter year</label>
+                    <select class="form-control year_update" value="" id="UPDATE__YEAR"> </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="">Enter country</label>
+                    <select class="form-control country_update" value="" id="UPDATE__COUNTRY" multiple="multiple"> </select>
+                </div>
+                <div class="mb-3">
+                    <label for="">Enter janr</label>
+                    <select class="form-control janr_update" value="" id="UPDATE__JANR" multiple="multiple">
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="">Enter language</label>
+                    <select class="form-control language_update" value="" id="UPDATE__LANGUAGE" multiple="multiple">
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="">Enter category</label>
+                    <select class="js-example-basic-multiple form-control category_update" multiple="multiple" id="UPDATE__CATEGORY">
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="">Enter author</label>
+                    <select class="form-control author_update" value="" id="UPDATE__AUTHOR" multiple="multiple">
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="">Enter tag</label>
+                    <select class="form-control tag_update" value="" id="UPDATE__TAG" multiple="multiple">
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Enter amount</label>
+                    <input type="number" class="form-control AMOUNT" value="${result.amount}" id="UPDATE__AMOUNT">
+                </div>
+                <div class="mb-3">
+                    <label for="">Enter format</label>
+                    <select class="form-control " value="" id="UPDATE__FORMAT">
+                        <option value=""> Select something </option>
+                        <option value="HD - 144p">HD - 144p</option>
+                        <option value="HD - 240p">HD - 240p</option>
+                        <option value="HD - 480p">HD - 480p</option>
+                        <option value="HD - 720p">HD - 720p</option>
+                        <option value="HD - 1080p">HD - 1080p</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Enter IMDb</label>
+                    <input type="text" value="${result.IMDb}" class="form-control" id="UPDATE__IMDb">
+                </div>
+                <div class="mb-3">
+                    <button onclick="updateAction('${result._id}')" class="btn btn-outline-warning"> <i class="fas fa-plus-square"></i>
+                        Save data</button>
+                </div>
+            
+            `)
+            axios.get('/api/country/all').then(async (Response) => {
+                const result = Response.data // [{}, {}, {}]
+                const get_DATA = $('.country_update')
+                await get_DATA.html("")
+                result.forEach((item, index) => {
+                    get_DATA.append(`<option value="${item._id}">${item.name}</option>`)
+                });
+            })
+            axios.get('/api/janr/all').then(async (Response) => {
+                const result = Response.data // [{}, {}, {}]
+                const get_DATA = $('.janr_update')
+                await get_DATA.html("")
+                result.forEach((item, index) => {
+                    get_DATA.append(`<option value="${item._id}">${item.name}</option>`)
+                });
+            })
+            axios.get('/api/language/all').then(async (Response) => {
+                const result = Response.data // [{}, {}, {}]
+                const get_DATA = $('.language_update')
+                await get_DATA.html("")
+                result.forEach((item, index) => {
+                    get_DATA.append(`<option value="${item._id}">${item.name}</option>`)
+                });
+            })
+            axios.get('/api/category/all').then(async (Response) => {
+                const result = Response.data // [{}, {}, {}]
+                const get_DATA = $('.category_update')
+                await get_DATA.html("")
+                result.forEach((item, index) => {
+                    get_DATA.append(`<option value="${item._id}">${item.name}</option>`)
+                });
+            })
+            axios.get('/api/author/all').then(async (Response) => {
+                const result = Response.data // [{}, {}, {}]
+                const get_DATA = $('.author_update')
+                await get_DATA.html("")
+                result.forEach((item, index) => {
+                    get_DATA.append(`<option value="${item._id}">${item.name}</option>`)
+                });
+            })
+            axios.get('/api/tag/all').then(async (Response) => {
+                const result = Response.data // [{}, {}, {}]
+                const get_DATA = $('.tag_update')
+                await get_DATA.html("")
+                result.forEach((item, index) => {
+                    get_DATA.append(`<option value="${item._id}">${item.name}</option>`)
+                });
+            })
+            axios.get('/api/age/all').then(async (Response) => {
+                const result = Response.data // [{}, {}, {}]
+                const get_DATA = $('.age_update')
+                await get_DATA.html("")
+                get_DATA.append(`<option value="" style="font-weight: 900;"> Select something </option>`)
+                result.forEach((item, index) => {
+                    get_DATA.append(`<option value="${item._id}">${item.name}</option>`)
+                });
+            })
+            axios.get('/api/year/all').then(async (Response) => {
+                const result = Response.data // [{}, {}, {}]
+                const get_DATA = $('.year_update')
+                await get_DATA.html("")
+                get_DATA.append(`<option value="" style="font-weight: 900;"> Select something </option>`)
+                result.forEach((item, index) => {
+                    get_DATA.append(`<option value="${item._id}">${item.name}</option>`)
+                });
+            })
+        })
+    }
+
+    const updateAction = (id) => {
+        const formData = new FormData()
+
+        let IMAGE = document.getElementById("UPDATE__IMAGE").files[0]
+        let VIDEO = document.getElementById("UPDATE__VIDEO").files[0]
+        let NAME = $("#UPDATE__NAME").val()
+        let DESCRIPTION = $("#UPDATE__DESCRIPTION").val()
+        let VIDEO_TIME = $("#UPDATE__VIDEO_TIME").val()
+        let AGE = $("#UPDATE__AGE").val()
+        let YEAR = $("#UPDATE__YEAR").val()
+        let AMOUNT = $("#UPDATE__AMOUNT").val()
+        let FORMAT = $("#UPDATE__FORMAT").val()
+        let IMDb = $("#UPDATE__IMDb").val()
+        let COUNTRY = document.getElementById("UPDATE__COUNTRY")
+        let JANR = document.getElementById("UPDATE__JANR")
+        let LANGUAGE = document.getElementById("UPDATE__LANGUAGE")
+        let CATEGORY = document.getElementById("UPDATE__CATEGORY")
+        let AUTHOR = document.getElementById("UPDATE__AUTHOR")
+        let TAG = document.getElementById("UPDATE__TAG")
+
+        const Country = []
+        for (let item of COUNTRY) {
+            if (item.selected) {
+                Country.push(item.value)
+            }
+        }
+        const Janr = []
+        for (let item of JANR) {
+            if (item.selected) {
+                Janr.push(item.value)
+            }
+        }
+        const Language = []
+        for (let item of LANGUAGE) {
+            if (item.selected) {
+                Language.push(item.value)
+            }
+        }
+        const Category = []
+        for (let item of CATEGORY) {
+            if (item.selected) {
+                Category.push(item.value)
+            }
+        }
+        const Author = []
+        for (let item of AUTHOR) {
+            if (item.selected) {
+                Author.push(item.value)
+            }
+        }
+        const Tag = []
+        for (let item of TAG) {
+            if (item.selected) {
+                Tag.push(item.value)
+            }
+        }
+
+
+        for (var i = 0; i < Country.length; i++) {
+            formData.append('country[]', Country[i]);
+        }
+        for (var i = 0; i < Janr.length; i++) {
+            formData.append('janr[]', Janr[i]);
+        }
+        for (var i = 0; i < Language.length; i++) {
+            formData.append('language[]', Language[i]);
+        }
+        for (var i = 0; i < Category.length; i++) {
+            formData.append('category[]', Category[i]);
+        }
+        for (var i = 0; i < Author.length; i++) {
+            formData.append('author[]', Author[i]);
+        }
+        for (var i = 0; i < Tag.length; i++) {
+            formData.append('tag[]', Tag[i]);
+        }
+        formData.append("files", VIDEO)
+        formData.append("files", IMAGE)
+        formData.append("name", NAME)
+        formData.append("description", DESCRIPTION)
+        formData.append("videoTime", VIDEO_TIME)
+        formData.append("age", AGE)
+        formData.append("year", YEAR)
+        formData.append("amount", AMOUNT)
+        formData.append("format", FORMAT)
+        formData.append("IMDb", IMDb)
+
+        if (
+            IMAGE == "" ||
+            VIDEO == "" ||
+            NAME == "" ||
+            DESCRIPTION == "" ||
+            VIDEO_TIME == "" ||
+            AGE == "" ||
+            YEAR == "" ||
+            AMOUNT == "" ||
+            FORMAT == "" ||
+            IMDb == "" ||
+            COUNTRY == "" ||
+            JANR == "" ||
+            LANGUAGE == "" ||
+            CATEGORY == "" ||
+            AUTHOR == "" ||
+            TAG == ""
+        ) {
+            document.getElementById('error_update').style.display = "block"
+            setTimeout(() => { document.getElementById('error_update').style.display = "none" }, 3000)
+        } else {
+            axios({
+                url: `/api/kino/${id}`,
+                method: "PUT",
+                data: formData,
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            }).then((res) => {
+                document.getElementById('success_update').style.display = "block"
+                setTimeout(() => {
+                    window.location.reload()
+                }, 2000)
+            }).catch((error) => {
+                console.log(error)
+            })
+        }
+    }
+
+
+    // Delete data
+    const deleteITEM = (id) => {
+        axios.delete(`/api/kino/${id}`).then((res) => {
+            document.getElementById('delete_success').style.display = "block"
+            setTimeout(() => {
+                window.location.reload()
+            }, 2000)
+        })
+    }
+
+
+
+</script>

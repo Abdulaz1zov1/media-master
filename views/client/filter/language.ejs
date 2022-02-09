@@ -1,0 +1,102 @@
+
+<div class="page-nav p-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <div class="search-wrapper">
+                    <h2 class="mb-3" id="languageName">   </h2>
+                    <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, maxime?</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-wrapper search-wrap-slide mt-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 text-left mb-4 mt-1">
+                <h2>Kinolar</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" style="display: flex; flex-direction: row; flex-wrap: wrap;" id="kinolar">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="slide-wrapper search-wrap-slide">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 text-left mb-4 mt-1">
+                <h2>Seriallar</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" style="display: flex; flex-direction: row; flex-wrap: wrap;" id="seriallar">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/axios.min.js"></script>
+<script>
+
+    const path = window.location.pathname
+    const languageID = path.slice(10)
+
+
+    axios.get(`/api/language/${languageID}`).then(async(res) => {
+        const result = res.data
+        document.getElementById('languageName').innerHTML = result.name
+    })
+
+
+
+    axios.get(`/api/filter/language/${languageID}`).then(async(res) => {
+        console.log(res.data)
+        const Kino = res.data.kino
+        const Season = res.data.season
+
+
+        const kinolar = $('#kinolar')
+        await kinolar.html("")
+        Kino.forEach(element => {
+            kinolar.append(`
+                        <a class="slide-one col-md-12"  href="/movie/${element._id}">
+                            <div class="slide-content">
+                                <h2>${element.name}<img src="/images/plus.png" alt="icon"></h2>
+                                <span class="tag">2 h 20 min</span>
+                                <span class="tag">2020</span>
+                                <span class="tag"><b>HD</b></span>
+                                <span class="tag"><b>16+</b></span>
+                            </div>
+                        </a>
+            `)
+        });
+
+        const seriallar = $('#seriallar')
+        await seriallar.html("")
+        Season.forEach(element => {
+            seriallar.append(`
+                        <a class="slide-one col-md-12"  href="/serial/${element._id}">
+                            <div class="slide-content">
+                                <h2>${element.name}<img src="/images/plus.png" alt="icon"></h2>
+                                <span class="tag">Umumiy serial </span>
+                                <span class="tag">2020</span>
+                                <span class="tag"><b>HD</b></span>
+                                <span class="tag"><b>16+</b></span>
+                            </div>
+                        </a>
+            `)
+        });
+    })
+
+</script>

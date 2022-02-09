@@ -1,0 +1,303 @@
+<div class="banner-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="banner-slider owl-carousel owl-theme " id="sliderss">
+
+                    <% if (slider=="" ) {%>
+                        <div class="owl-items">
+                            <div class="banner-wrap justify-content-between align-items-center">
+                                <div class="left-wrap">
+                                    <span class="rnd">IMDb 6.7</span>
+                                    <h2>Mother of <br>Brooklyn</h2>
+                                    <span class="tag"><b>SEASON 1</b></span>
+                                    <span class="tag">2020</span>
+                                    <span class="tag"><b>HD</b></span>
+                                    <span class="tag"><b>16+</b></span>
+                                    <span class="tag">2 h 20 min</span>
+                                    <p>Radhe is a singing prodigy determined to follow in the classical footsteps of his
+                                        grandfather. Tamanna is a YouTube pop sensation desperate to become .</p>
+                                    <a href="#" class="btn btn-lg btn-video"><img src="/images/play.png" alt="icn">Watch
+                                        now</a>
+                                </div>
+                                <div class="right-wrap" style="background-image: url(/images/banner-4.jpg);"></div>
+                            </div>
+                        </div>
+                        <% } else {%>
+                            <% for(let item of slider) {%>
+
+                                <div class="owl-items">
+                                    <div class="banner-wrap justify-content-between align-items-center">
+                                        <div class="left-wrap">
+                                            <span class="rnd">Trailer</span>
+                                            <h2>
+                                                <%= item.title %>
+                                            </h2>
+                                            <span class="tag">
+                                                <%= new Date(item.createdAt).toLocaleDateString() %>
+                                            </span>
+                                            <span class="tag"><b>HD</b></span>
+                                            <p>
+                                                <%= item.description %>
+                                            </p>
+
+                                            <% if(item.kino) {%>
+                                                <a onclick="replaceKino('<%= item.kino._id %>')" href=""
+                                                    class="btn btn-lg btn-video">Kinoni ko'rish</a>
+                                                <% } else if (item.season) {%>
+                                                    <a onclick="replaceSerial('<%= item.season._id %>')" href=""
+                                                        class="btn btn-lg btn-video">Serialni ko'rish</a>
+                                                    <% } else if(!item.kino) {%>
+                                                        <a href="#" class="btn btn-lg btn-video">Kinoni ko'rish</a>
+                                                        <% } else if (!item.season) {%>
+                                                            <a href="#" class="btn btn-lg btn-video">Serial ko'rish</a>
+                                                            <% } %>
+
+                                        </div>
+                                        <div class="right-wrap">
+                                            <video autoplay muted loop id="myVideo">
+                                                <source src="/uploads/<%= item.file %>" type="video/mp4">
+                                            </video>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% }%>
+                                    <% }%>
+
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 text-left mb-4 mt-4">
+                <h2>So'ngi kinolar</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class=" col-sm-12 col-md-12 " style="display: flex; flex-direction: row;" id="kinolar">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 text-left mb-4 mt-4">
+                <h2>So'ngi seriallar</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class=" col-sm-12 col-md-12 " style="display: flex; flex-direction: row;" id="sezon">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="category-wrapper slide-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 text-left mb-4 mt-1">
+                <h2>Qaysi tilda filmlar sizga yoqadi ?</h2>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="category-slider owl-carousel owl-theme">
+                    <% if(languages == "") {%>
+                        <div class="owl-items">
+                            <a href="/" class="category-wrap"
+                                style="background-image: url(/images/gb2.png);"><span>Til hali mavjud emas</span></a>
+                        </div>
+                    <% } else  {%> 
+                        <% for(let item of languages) {%> 
+                            <div class="owl-items">
+                                <a href="/language/<%= item._id  %>" class="category-wrap"
+                                    style="background-image: url(/images/gb2.png);"><span><%= item.name  %> </span></a>
+                            </div>
+                        <% } %> 
+                    <% } %> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="category-wrapper slide-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 text-left mb-4 mt-1">
+                <h2>Qaysi yildagi filmlar sizga yoqadi ?</h2>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="category-slider owl-carousel owl-theme">
+                    <% if(years == "") {%>
+                        <div class="owl-items">
+                            <a href="/" class="category-wrap"
+                                style="background-image: url(/images/gb3.png);"><span>Yil hali mavjud emas</span></a>
+                        </div>
+                    <% } else  {%> 
+                        <% for(let item of years) {%> 
+                            <div class="owl-items">
+                                <a href="/year/<%= item._id  %>" class="category-wrap"
+                                    style="background-image: url(/images/gb3.png);"><span><%= item.name  %> </span></a>
+                            </div>
+                        <% } %> 
+                    <% } %> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="category-wrapper slide-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 text-left mb-4 mt-1">
+                <h2>Qaysi janrdagi filmlar sizga yoqadi ?</h2>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="category-slider owl-carousel owl-theme">
+                    <% if(janrs == "") {%>
+                        <div class="owl-items">
+                            <a href="/" class="category-wrap"
+                                style="background-image: url(/images/gb4.png);"><span>Janr hali mavjud emas</span></a>
+                        </div>
+                    <% } else  {%> 
+                        <% for(let item of janrs) {%> 
+                            <div class="owl-items">
+                                <a href="/janr/<%= item._id  %>" class="category-wrap"
+                                    style="background-image: url(/images/gb4.png);"><span><%= item.name  %> </span></a>
+                            </div>
+                        <% } %> 
+                    <% } %> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 text-left mb-4 mt-1">
+                <h2>Anotatsiyalar</h2>
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="slide-slider owl-carousel owl-theme">
+
+
+
+                    <div class="owl-items">
+                        <a class="slide-one slide-two" href="#">
+                            <div class="slide-image" style="background-image: url(images/s17.png);"></div>
+                            <div class="slide-content">
+                                <h2>Batman Knight <img src="images/plus.png" alt="icon" class="add-wishlist"></h2>
+                                <span class="tag">2 h 20 min</span>
+                                <span class="tag">2020</span>
+                                <span class="tag"><b>HD</b></span>
+                                <span class="tag"><b>16+</b></span>
+                            </div>
+                        </a>
+                    </div>
+                    
+
+                    
+                </div>                    
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/axios.min.js"></script>
+<script>
+
+    axios.get('/api/homepage/all').then(async (res) => {
+        // Linolar uchun
+        const KINOLAR = res.data.kino
+        const kinolar = $('#kinolar')
+        await kinolar.html("")
+        KINOLAR.forEach((item) => {
+            kinolar.append(`
+                    <div class="owl- col-xl-3  col-sm-3 col-md-3">
+                        <a class="slide-one" href="/movie/${item._id}">
+                            <div class="slide-image"  >
+                                <img  src="/uploads/${item.files[1]}" alt="image">
+                            </div>
+                            <div class="slide-content">
+                                <h2>${item.name}</h2>
+                                <span class="tag">${item.videoTime}</span>
+                                <span class="tag">${item.year.name}</span>
+                                <span class="tag"><b>${item.format}</b></span>
+                                <span class="tag"><b>${item.age.name}</b></span>
+                            </div>
+                        </a>
+                    </div>
+            `)
+        });
+
+        // Seasonlar uchun 
+        const SEASON = res.data.season
+        const sezon = $('#sezon')
+        await sezon.html("")
+        SEASON.forEach((item) => {
+            sezon.append(`
+                    <div class="owl-items col-md-3  col-sm-3 col-xl-3  ">
+                        <a class="slide-one" href="/serial/${item._id}">
+                            <div class="slide-image"  >
+                                <img  src="/uploads/${item.image}" alt="image">
+                            </div>
+                            <div class="slide-content">
+                                <h2>${item.name}</h2>
+                                <span class="tag">${item.amount} so'm</span>
+                                <span class="tag">${item.year.name}</span>
+                                <span class="tag"><b>${item.age.name}</b></span>
+                            </div>
+                        </a>
+                    </div>
+            `)
+        });
+
+    })
+    const replaceKino = (id) => {
+        window.location.replace(`/movie/${id}`)
+    }
+    const replaceSerial = (id) => {
+        window.location.replace(`/serial/${id}`)
+    }
+
+
+
+
+
+
+</script>
